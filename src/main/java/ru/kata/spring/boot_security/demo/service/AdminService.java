@@ -25,10 +25,15 @@ public class AdminService {
 @PersistenceContext
    private EntityManager entityManager;
 
-@Autowired
- RoleRepository roleRepository;
-@Autowired
- UserRepository userRepository;
+public final
+RoleRepository roleRepository;
+public final
+UserRepository userRepository;
+
+    public AdminService(RoleRepository roleRepository, UserRepository userRepository) {
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+    }
 
 //    BCryptPasswordEncoder bCryptPasswordEncoder;
 //
@@ -71,7 +76,9 @@ public class AdminService {
         user.setRole(user.getRole());
         user.setPassword(user.getPassword());
         user.setEmail(user.getEmail());
-        user.setUsername(user.getUsername());
+        user.setAge(user.getAge());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
 userRepository.save(user);
 
     }
@@ -87,7 +94,9 @@ userRepository.save(user);
     public User updateUser(long id,User update){
 User toBeUpdate =getUserById(id);
 toBeUpdate.setPassword(update.getPassword());
-toBeUpdate.setUsername(update.getUsername());
+toBeUpdate.setFirstName(update.getFirstName());
+toBeUpdate.setLastName(update.getLastName());
+toBeUpdate.setAge(update.getAge());
 toBeUpdate.setEmail(update.getEmail());
 toBeUpdate.setRole(update.getRole());
 return entityManager.merge(toBeUpdate);

@@ -18,24 +18,34 @@
     <form th:method="POST" th:action="@{/admin/user}" th:object="${user}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <div class="field">
-            <label for="username">Enter username:</label>
-            <input type="text" th:field="*{username}" id="username"/>
+            <label for="firstname">First name:</label>
+            <input type="text" th:field="*{firstName}" id="firstname"/>
         </div>
         <br/>
         <div class="field">
-            <label for="password">Enter password: </label>
-            <input type="text" th:field="*{password}" id="password"/>
+            <label for="lastname">Last name:</label>
+            <input type="text" th:field="*{lastName}" id="lastname"/>
+        </div>
+        <br/>
+        <div class="field">
+            <label for="age">Age: </label>
+            <input type="number" th:field="*{age}" id="age"/>
         </div>
         <div class="field">
-            <label for="role">Enter role: </label>
+            <label for="email">Email:</label>
+            <input type="email" th:field="*{email}" id="email"/>
+        </div>
+        <br/>
+        <div class="field">
+            <label for="password">Password:</label>
+            <input type="password" th:field="*{password}" id="password"/>
+        </div>
+        <br/>
+        <div class="field">
+            <label for="role">Role:</label>
             <input type="text" th:field="*{role}" id="role"/>
         </div>
-        <div class="field">
-            <label for="email">Enter email: </label>
-            <input type="text" th:field="*{email}" id="email"/>
-        </div>
-        <br/>
-        <input type="submit" value="Create!"/>
+        <input type="submit" value="Add new user"/>
     </form>
 </div>
 

@@ -19,17 +19,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomUserDetailService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findUsersByEmail(username);
         if (user == null){
             throw new UsernameNotFoundException("Unkown user: "+username);
         }
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
+                .username(user.getEmail())
                 .password(encoder.encode(user.getPassword()))
                 .roles(user.getRole())
                 .build();

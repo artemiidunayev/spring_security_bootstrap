@@ -15,22 +15,33 @@
         <thead>
         <tr>
             <th scope="col">Id</th>
-            <th scope="col">UserName</th>
-            <th scope="col">Password</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Age</th>
             <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user: ${users}">
             <td th:text="${user.id}"/>
-            <td th:text="${user.username}"/>
-            <td th:text="${user.password}"/>
+            <td th:text="${user.firstName}"/>
+            <td th:text="${user.lastName}"/>
+            <td th:text="${user.age}"/>
             <td th:text="${user.email}"/>
+            <td th:text="${user.role}"/>
             <td>
                 <div class="divBox">
-                    <a th:href="@{/admin/user/{id}(id=${user.getId()})}"> VIEW USER </a>
+                    <a th:href="@{/admin/user/{id}(id=${user.getId()})}"> Edit </a>
 
                 </div>
+            </td>
+            <td>
+                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
             </td>
         </tr>
         </tbody>

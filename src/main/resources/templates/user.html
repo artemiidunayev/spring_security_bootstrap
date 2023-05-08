@@ -6,8 +6,11 @@
 <body>
 <h1>User, welcome spring boot security page!</h1>
 <p th:text="${user.getId()}"> VALUE </p>
+<p th:text="${user.getFirstName()}"> VALUE </p>
+<p th:text="${user.getLastName()}"> VALUE </p>
+<p th:text="${user.getAge()}"> VALUE </p>
 <p th:text="${user.getEmail()}"> VALUE </p>
-<p th:test="${user.getPassword()}">VALUE</p>
+<p th:test="${user.getRole()}">VALUE</p>
 
 <br/>
 <a th:href="@{/admin/user/{id}/edit (id=${user.getId()})}">Edit</a>

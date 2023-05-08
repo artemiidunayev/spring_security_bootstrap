@@ -16,14 +16,19 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "password")
     private String password;
     @Column(name = "email")
     private String email;
     @Column(name = "role")
     private String role;
+    @Column(name = "age")
+    private int age;
+
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
@@ -34,12 +39,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String password, String email, String role) {
-        this.username = name;
+    public User(String firstName, String lastName, String password, String email, String role, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.role = role;
-
+        this.age = age;
     }
 
     public String getRole() {
@@ -64,10 +70,6 @@ public class User implements UserDetails {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     @Override
@@ -99,8 +101,13 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
 
@@ -116,14 +123,37 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", age=" + age +
+                ", roles=" + roles +
                 '}';
     }
 }

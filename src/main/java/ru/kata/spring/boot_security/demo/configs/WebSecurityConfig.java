@@ -39,11 +39,16 @@ private CustomUserDetailService customUserDetailService;
                 .antMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
+//                .formLogin().successHandler(successUserHandler)
+                .formLogin().loginPage("/")
+                .loginProcessingUrl("/login")
+                .successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout").logoutSuccessUrl("/login")
+                .logoutUrl("/logout").logoutSuccessUrl("/l")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll();
     }
 
