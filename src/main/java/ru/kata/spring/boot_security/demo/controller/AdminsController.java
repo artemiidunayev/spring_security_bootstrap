@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,19 +24,21 @@ public class AdminsController {
         this.roleService = roleService;
     }
 
+
     @GetMapping
-    public String showAllUsers(Model model, Principal principal) {
+    public String showAllUsers(Model model, Principal principal, Authentication authentication) {
         model.addAttribute("user", this.userService.findByEmail(principal.getName()));
+//        model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("users", this.userService.getAllUsers());
         model.addAttribute("roles", this.roleService.getListRoles());
         model.addAttribute("newUser", new User());
         return "admin";
     }
 
-    @PatchMapping({"/edit/{id}"})
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+    @PutMapping({"/edit/{id}"})
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id, Model model) {
         this.userService.updateUser(id, user);
-        return "redirect:/admin";
+           return "redirect:/admin";
     }
 
     @PostMapping
